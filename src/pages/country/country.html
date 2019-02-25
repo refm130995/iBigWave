@@ -1,0 +1,30 @@
+
+  
+  <ion-content class="bg-light">
+      <div class="your-cart bg-thime">
+          <ion-card>
+              <ion-card-content>
+                  <ion-row>
+                      <ion-col col-12>
+                          <ion-item>
+                              <ion-select [(ngModel)]="newCountry" interface="popover"  class="selector">
+                                <ion-option [hidden] = "newCountry == value" value="Chile">Chile</ion-option>
+                                <ion-option  [hidden] = "newCountry == value" value="Peru">Peru</ion-option>
+                                <ion-option  [hidden] = "newCountry == value" value="Venezuela">Venezuela</ion-option>
+                              </ion-select>
+                            </ion-item>
+                      </ion-col>
+                  </ion-row>
+              </ion-card-content>
+          </ion-card>
+
+  
+  
+          <ion-row class="checkout">
+              <ion-col col-6 class="btn_save">
+                  <button ion-button full class="bg-green btn-round btn-text btn-shadow" text-center (click)="dismiss()">{{"select_location" | translate}}</button>
+              </ion-col>
+          </ion-row>
+      </div>
+  </ion-content>
+  

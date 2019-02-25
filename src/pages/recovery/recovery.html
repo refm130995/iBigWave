@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon class="menu-icon"><img src="assets/imgs/ic_menu.png"></ion-icon>
+      </button>
+      <ion-title>{{"login_box2" | translate}} </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <div class="form" padding-left padding-right>
+      <!-- <p text-center>{{"forgot_password_text" | translate}}</p> -->
+      <form padding [formGroup]="form" novalidate>
+      <ion-list>
+          <ion-item>
+              <ion-label float><!-- {{"login_box1" | translate}} -->Email</ion-label>
+              <ion-input type="email" text-right formControlName="email" [(ngModel)]="user.email"></ion-input>
+            </ion-item>
+            <ng-container *ngIf="form.get('email').errors && form.get('email').dirty">
+              <p color="danger" ion-text *ngIf="form.get('email').hasError('required')">Campo requerido</p>
+              <p color="danger" ion-text *ngIf="form.get('email').hasError('email')">Email invalido</p>
+            </ng-container>
+      </ion-list>
+      <button ion-button full class="bg-thime btn-round btn-text" (click)="recovery()" [disabled]="form.invalid">Enviar</button>
+    </form>
+    </div>
+  </ion-content>
+  

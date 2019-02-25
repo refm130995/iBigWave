@@ -1,0 +1,292 @@
+<ion-header class="bg-thime">
+  <ion-navbar>
+    <button ion-button menuToggle style="display: block !important;">
+      <ion-icon class="menu-icon"><img src="assets/imgs/ic_menu.png">
+        <ion-badge id="notifications-badge" color="danger">4</ion-badge>
+      </ion-icon>
+    </button>
+
+    <ion-title text-uppercase text-center>{{"app_title" | translate}} <br>
+       <div (click)="selectCountry()" class="country"> <small> {{country}}</small> <ion-icon name="arrow-dropdown"></ion-icon></div>
+      <span float-right>
+        <ion-icon class="icon" (click)="wishlistPage()"><img src="assets/imgs/ic_my_wishlist.png" width="100%;"></ion-icon>
+        <ion-icon class="icon" (click)="cartPage()"><img src="assets/imgs/ic_my_cart.png" width="100%;">
+          <ion-badge id="notifications-badge" color="danger">2</ion-badge>
+        </ion-icon>
+      </span>
+    </ion-title>
+  </ion-navbar>
+  <ion-searchbar  #pac (ionInput)="getItems($event)" placeholder="Buscar direccion..."></ion-searchbar>
+</ion-header>
+<ion-content style="position: relative;">
+  <!--<div id="map_canvas"></div>-->
+  <div #map id="map" style="width: 100%;height: 100%" (click)="goMapa()"></div>
+
+
+  <div style="position: absolute;left: 0;top: 0;width: 100%;height: 100%" *ngIf="window2">
+    
+     <div class="espandir" *ngIf="window2&&showWindow[0]!=''">
+        <div class="item-scroll"  *ngFor="let profile of detail2" text-center >
+          <div class="item-item" *ngIf="profile.type_profile == 'Pyme'">
+            <img *ngIf="profile.banner!=null&&profile.banner!=''" (click)="goProfile(profile,'Pyme')" class="banner" src="{{profile.banner}}">
+            <img *ngIf="profile.banner==null||profile.banner==''" (click)="goProfile(profile,'Pyme')" class="banner" src="https://about.canva.com/es_es/wp-content/uploads/sites/3/2015/02/Etsy-Banners.png">
+              <div class="imagenes" (click)="goProfile(profile,'Pyme')">
+                <div class="imagen">
+                    <img *ngIf="profile.photo!=null" class="logo" src="{{profile.photo}}">
+                    <img *ngIf="profile.photo==null" class="logo" src="http://fundaciondiversidad.org/images/stories/imagen_no_disponible.jpg">
+                </div>                  
+              </div>
+            <button icon-only class="boton-seguir" (click)="seguir(profile)">
+              <ion-icon [ngClass]="profile.followColor" name="ios-thumbs-up"></ion-icon>
+            </button>
+          </div>
+          <div class="item-item3" *ngIf="profile.type_profile == 'Seller'">        
+            <img *ngIf="profile.banner!=null&&profile.banner!=''" (click)="goProfile(profile,'Seller')" class="banner" src="{{profile.banner}}">
+            <img *ngIf="profile.banner==null||profile.banner==''" (click)="goProfile(profile,'Seller')" class="banner" src="https://about.canva.com/es_es/wp-content/uploads/sites/3/2015/02/Etsy-Banners.png">
+              <div class="imagenes" (click)="goProfile(profile,'Seller')">
+                <div class="imagen">
+                    <img *ngIf="profile.photo!=null" class="logo" src="{{profile.photo}}">
+                    <img *ngIf="profile.photo==null" class="logo" src="http://fundaciondiversidad.org/images/stories/imagen_no_disponible.jpg">
+                </div>                  
+              </div>
+            <button icon-only class="boton-seguir" (click)="seguir(profile)">
+              <ion-icon [ngClass]="profile.followColor" name="ios-thumbs-up"></ion-icon>
+            </button>
+          </div>
+          <div class="item-item2" *ngIf="profile.type_profile == 'Independent'" >        
+            <img *ngIf="profile.banner!=null&&profile.banner!=''" (click)="goProfile(profile,'Independent')" class="banner" src="{{profile.banner}}">
+            <img *ngIf="profile.banner==null||profile.banner==''" (click)="goProfile(profile,'Independent')" class="banner" src="https://about.canva.com/es_es/wp-content/uploads/sites/3/2015/02/Etsy-Banners.png">
+              <div class="imagenes" (click)="goProfile(profile,'Independent')">
+                <div class="imagen">
+                    <img *ngIf="profile.photo!=null" class="logo" src="{{profile.photo}}">
+                    <img *ngIf="profile.photo==null" class="logo" src="http://fundaciondiversidad.org/images/stories/imagen_no_disponible.jpg">
+                </div>                  
+              </div>
+            <button icon-only class="boton-seguir" (click)="seguir(profile)">
+              <ion-icon [ngClass]="profile.followColor" name="ios-thumbs-up"></ion-icon>
+            </button>
+          </div>
+          <div class="title-item2" *ngIf="profile.type_profile == 'Pyme'">{{profile.title}}</div>
+          <div class="title-item" *ngIf="profile.type_profile != 'Pyme'">{{profile.title}}</div>
+        </div>
+      </div>
+
+      <div class="espandir" *ngIf="window2&&showWindow[1]!=''">
+        <div class="item-scroll2" *ngFor="let product of productsAll2" >      
+          <ion-grid >
+            <ion-row >
+              <ion-col col-5 class="img">
+                <div class="imagen">
+                  <img class="image-fondo" src="assets/imgs/fondo.jpg">
+                  <img *ngIf="product.images!=null" (click)="goProduct(product)" class="image-ver" src="{{product.images}}">
+                  <img *ngIf="product.images==null" (click)="goProduct(product)" class="image-ver" src="http://fundaciondiversidad.org/images/stories/imagen_no_disponible.jpg">
+                  <button icon-only class="boton-seguir" (click)="addWish(product)">
+                    <ion-icon [ngClass]="product.followColor" name="md-heart"></ion-icon>
+                  </button> 
+                  <button icon-only class="boton-seguir2" (click)="addProduct(product)">
+                    <ion-icon class="icon-cart" name="cart"></ion-icon>
+                  </button> 
+                </div>            
+              </ion-col>
+              <ion-col col-7 >
+                <div class="content-uno">
+                  <div class="name" (click)="goProduct(product)"> <b>{{product.name}}</b></div>
+                  <div class="perfil" >{{product.title}}
+                    <img *ngIf="product.type_profile == 'Pyme'" src="https://cdn1.iconfinder.com/data/icons/social-media-vol-3-2/24/_p-32.png"/>
+                    <img *ngIf="product.type_profile == 'Seller'" src="https://cdn1.iconfinder.com/data/icons/social-media-vol-3-2/24/_s_copy-32.png"/>
+                    <img *ngIf="product.type_profile == 'Independent'" src="https://cdn1.iconfinder.com/data/icons/social-media-vol-3-2/24/_heart-32.png"/>
+                  </div>
+                  <h3>CLP {{product.price}}</h3>
+                </div>
+                <div class="content-dos">
+                  <div class="row iconos">
+                    <div class="col val">4.5</div>
+                    <ion-icon class="col star" name="ios-star" ></ion-icon>
+                    <ion-icon class="col star" name="ios-star" ></ion-icon>
+                    <ion-icon class="col star" name="ios-star" ></ion-icon>
+                    <ion-icon class="col star" name="ios-star" ></ion-icon>
+                    <ion-icon class="col star" name="ios-star-half-outline" ></ion-icon>
+                  </div>              
+                </div>            
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+      <div class="espandir" *ngIf="window2&&showWindow[2]!=''">
+        
+      </div>
+  </div>
+
+  <button class="boton-icon" ion-fab color="primary" (click)="showFilter2()">
+    <ion-icon name="{{filter.icon}}" style="color:WHITE;font-size: 15px;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);"></ion-icon>
+  </button>
+  <button class="boton-icon2" ion-fab color="accent" (click)="showFilter1()">
+    <ion-icon name="{{filter.icon}}" style="color:WHITE;font-size: 15px;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);"></ion-icon>
+  </button>
+  <!--<button class="boton-icon3" ion-fab color="warn" (click)="address()">
+    <ion-icon name="md-map" style="color:WHITE;font-size: 15px;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);"></ion-icon>
+  </button>-->
+  <div style="width: 29px;height: 29px;position: absolute;right: 9px;bottom: 90px; background: white;border-radius: 1px;box-shadow: 0 0 1px rgba(0,0,0,.3);padding: 8px"
+    (click)="miPosition()">
+    <ion-icon name="locate" style="color:#666;font-size: 15px"></ion-icon>
+  </div>
+
+  <div *ngIf="filter.show" class="list" style="width: 232px;position: absolute;right: 48px;bottom: 23px; background: white;border-radius: 4px;box-shadow: 0 0 1px rgba(0,0,0,.3);padding: 8px">
+    <ion-item>
+      <ion-label >Solo ver</ion-label>
+    </ion-item>
+    <div>
+      <ion-scroll scrollY="true" class="scrollX">
+        <ion-item *ngFor="let c of categories  ; let i = index;trackBy:trackByIndex;">
+          <ion-label>{{c.attributes.name}}</ion-label>
+          <ion-checkbox color="dark" checked="true" (click)="getFilter(c.id)"></ion-checkbox>
+          <!-- -->
+        </ion-item>
+      </ion-scroll>
+    </div>
+  </div>
+
+
+<!--   <div *ngIf="window3" style="position: absolute;top: 10px; left: 124px;right: 10px">
+    <input #pac id="pac"  type="text" placeholder="Buscar dirección" name="" style="width: 100%;border:none;box-shadow: 0 0 1px rgba(0,0,0,.6); padding: 9px; border-radius: 1px;padding-right: 32px">
+    <ion-icon name="search" style="color:#666;font-size: 18px;position: absolute;right: 8px; top: 9px;cursor: pointer;z-index: 10;"></ion-icon>
+  </div> -->
+
+<!--   <div *ngIf="window3" style="position: absolute;top: 56px; left: 10px;right: 10px;">
+    <ion-grid style="box-shadow: 0 0 1px rgba(0,0,0,.6);padding: 0">
+        <ion-row > -->
+          <!--<ion-col col-3 style="display: flex; background-color:#fff"> 
+            <img style="width: 24px;height: 24px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgMzM2LjY0MyAzMzYuNjQzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMzYuNjQzIDMzNi42NDM7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNMTU3LjYxOCwzMjcuNDc4YzUuOTA4LDEyLjIyNiwxNS41MDEsMTIuMjIsMjEuMzk3LTAuMDEyYzI1LjI5OS01Mi40ODEsODYuODk2LTE4MC40Miw4OC44MTItMTg1Ljc0M2wwLjMyNC0wLjg4NiAgIGMzLjgzNy0xMC45NTksNi4wMjgtMjIuNjg5LDYuMDI4LTM0Ljk2OUMyNzQuMTgsNDcuNDExLDIyNi43OSwwLDE2OC4zMzEsMEMxMDkuODU5LDAsNjIuNDYzLDQ3LjQwMiw2Mi40NjMsMTA1Ljg2OCAgIGMwLDguNjU2LDEuMTU2LDE3LjAyMSwzLjExMywyNS4wNzZsMC4xMDgsMC40NDdDNjguMzkzLDE0Mi4yNjksMTMxLjg2LDI3NC4xNjcsMTU3LjYxOCwzMjcuNDc4eiBNMTY4LjMzNiw0Ni4xNjIgICBjMzIuOTY5LDAsNTkuNjkxLDI2Ljc1MSw1OS42OTEsNTkuNzEyYzAsMzIuOTgxLTI2LjcyOCw1OS43MDUtNTkuNjkxLDU5LjcwNWMtMzIuOTg0LDAtNTkuNzExLTI2LjczLTU5LjcxMS01OS43MDUgICBDMTA4LjYzMSw3Mi45MTMsMTM1LjM1Miw0Ni4xNjIsMTY4LjMzNiw0Ni4xNjJ6IiBmaWxsPSIjMDAwMDAwIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==">
+            <div style="margin-top: 4px">Ubicación</div>
+          </ion-col>-->
+<!--           <ion-col col-4 style="display: flex; background-color:#fff"> 
+            <img style="width: 24px;height: 24px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgMzM2LjY0MyAzMzYuNjQzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMzYuNjQzIDMzNi42NDM7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNMTU3LjYxOCwzMjcuNDc4YzUuOTA4LDEyLjIyNiwxNS41MDEsMTIuMjIsMjEuMzk3LTAuMDEyYzI1LjI5OS01Mi40ODEsODYuODk2LTE4MC40Miw4OC44MTItMTg1Ljc0M2wwLjMyNC0wLjg4NiAgIGMzLjgzNy0xMC45NTksNi4wMjgtMjIuNjg5LDYuMDI4LTM0Ljk2OUMyNzQuMTgsNDcuNDExLDIyNi43OSwwLDE2OC4zMzEsMEMxMDkuODU5LDAsNjIuNDYzLDQ3LjQwMiw2Mi40NjMsMTA1Ljg2OCAgIGMwLDguNjU2LDEuMTU2LDE3LjAyMSwzLjExMywyNS4wNzZsMC4xMDgsMC40NDdDNjguMzkzLDE0Mi4yNjksMTMxLjg2LDI3NC4xNjcsMTU3LjYxOCwzMjcuNDc4eiBNMTY4LjMzNiw0Ni4xNjIgICBjMzIuOTY5LDAsNTkuNjkxLDI2Ljc1MSw1OS42OTEsNTkuNzEyYzAsMzIuOTgxLTI2LjcyOCw1OS43MDUtNTkuNjkxLDU5LjcwNWMtMzIuOTg0LDAtNTkuNzExLTI2LjczLTU5LjcxMS01OS43MDUgICBDMTA4LjYzMSw3Mi45MTMsMTM1LjM1Miw0Ni4xNjIsMTY4LjMzNiw0Ni4xNjJ6IiBmaWxsPSIjZmY0MDgxIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==">
+            <div style="margin-top: 4px">Pyme</div>
+          </ion-col>
+          <ion-col col-4 style="display: flex; background-color:#fff"> 
+            <img style="width: 24px;height: 24px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgMzM2LjY0MyAzMzYuNjQzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMzYuNjQzIDMzNi42NDM7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNMTU3LjYxOCwzMjcuNDc4YzUuOTA4LDEyLjIyNiwxNS41MDEsMTIuMjIsMjEuMzk3LTAuMDEyYzI1LjI5OS01Mi40ODEsODYuODk2LTE4MC40Miw4OC44MTItMTg1Ljc0M2wwLjMyNC0wLjg4NiAgIGMzLjgzNy0xMC45NTksNi4wMjgtMjIuNjg5LDYuMDI4LTM0Ljk2OUMyNzQuMTgsNDcuNDExLDIyNi43OSwwLDE2OC4zMzEsMEMxMDkuODU5LDAsNjIuNDYzLDQ3LjQwMiw2Mi40NjMsMTA1Ljg2OCAgIGMwLDguNjU2LDEuMTU2LDE3LjAyMSwzLjExMywyNS4wNzZsMC4xMDgsMC40NDdDNjguMzkzLDE0Mi4yNjksMTMxLjg2LDI3NC4xNjcsMTU3LjYxOCwzMjcuNDc4eiBNMTY4LjMzNiw0Ni4xNjIgICBjMzIuOTY5LDAsNTkuNjkxLDI2Ljc1MSw1OS42OTEsNTkuNzEyYzAsMzIuOTgxLTI2LjcyOCw1OS43MDUtNTkuNjkxLDU5LjcwNWMtMzIuOTg0LDAtNTkuNzExLTI2LjczLTU5LjcxMS01OS43MDUgICBDMTA4LjYzMSw3Mi45MTMsMTM1LjM1Miw0Ni4xNjIsMTY4LjMzNiw0Ni4xNjJ6IiBmaWxsPSIjZjUzZDNkIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==">
+            <div style="margin-top: 4px">Independents</div>
+          </ion-col>
+          <ion-col col-4 style="display: flex; background-color:#fff"> 
+            <img style="width: 24px;height: 24px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgMzM2LjY0MyAzMzYuNjQzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMzYuNjQzIDMzNi42NDM7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNMTU3LjYxOCwzMjcuNDc4YzUuOTA4LDEyLjIyNiwxNS41MDEsMTIuMjIsMjEuMzk3LTAuMDEyYzI1LjI5OS01Mi40ODEsODYuODk2LTE4MC40Miw4OC44MTItMTg1Ljc0M2wwLjMyNC0wLjg4NiAgIGMzLjgzNy0xMC45NTksNi4wMjgtMjIuNjg5LDYuMDI4LTM0Ljk2OUMyNzQuMTgsNDcuNDExLDIyNi43OSwwLDE2OC4zMzEsMEMxMDkuODU5LDAsNjIuNDYzLDQ3LjQwMiw2Mi40NjMsMTA1Ljg2OCAgIGMwLDguNjU2LDEuMTU2LDE3LjAyMSwzLjExMywyNS4wNzZsMC4xMDgsMC40NDdDNjguMzkzLDE0Mi4yNjksMTMxLjg2LDI3NC4xNjcsMTU3LjYxOCwzMjcuNDc4eiBNMTY4LjMzNiw0Ni4xNjIgICBjMzIuOTY5LDAsNTkuNjkxLDI2Ljc1MSw1OS42OTEsNTkuNzEyYzAsMzIuOTgxLTI2LjcyOCw1OS43MDUtNTkuNjkxLDU5LjcwNWMtMzIuOTg0LDAtNTkuNzExLTI2LjczLTU5LjcxMS01OS43MDUgICBDMTA4LjYzMSw3Mi45MTMsMTM1LjM1Miw0Ni4xNjIsMTY4LjMzNiw0Ni4xNjJ6IiBmaWxsPSIjM2Y1MWI1Ii8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==">
+            <div style="margin-top: 4px">Seller</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </div> -->
+  
+  <div *ngIf="window" class="button-row button-scroll">
+    <button ion-button color="{{showWindow[0]}}" (click)="changeShowWindow(0)">Perfiles</button>
+    <button ion-button color="{{showWindow[1]}}" (click)="changeShowWindow(1)">Productos</button>
+    <button ion-button color="{{showWindow[2]}}" (click)="changeShowWindow(2)">ofertas</button>
+  </div>
+
+  <button *ngIf="window" icon-only class="boton-cerrar" (click)="closeinfo()">
+      <ion-icon class="icon-seguir" name="close"></ion-icon>
+    </button>
+  <ion-scroll  scrollX="true" *ngIf="window&&showWindow[0]!=''" class="scroll-x">
+    
+    <div class="item-scroll"  *ngFor="let profile of detail" text-center>
+      <div class="item-item" *ngIf="profile.type_profile == 'Pyme'" >
+        <img *ngIf="profile.banner!=null&&profile.banner!=''" (click)="goProfile(profile,'Pyme')" class="banner" src="{{profile.banner}}">
+        <img *ngIf="profile.banner==null||profile.banner==''" (click)="goProfile(profile,'Pyme')" class="banner" src="https://about.canva.com/es_es/wp-content/uploads/sites/3/2015/02/Etsy-Banners.png">
+          <div class="imagenes" (click)="goProfile(profile,'Pyme')">
+            <div class="imagen">
+                <img *ngIf="profile.photo!=null" class="logo" src="{{profile.photo}}">
+                <img *ngIf="profile.photo==null" class="logo" src="http://fundaciondiversidad.org/images/stories/imagen_no_disponible.jpg">
+            </div>                  
+          </div>
+        <button icon-only class="boton-seguir" (click)="seguir(profile)">
+          <ion-icon [ngClass]="profile.followColor" name="ios-thumbs-up"></ion-icon>
+        </button>
+      </div>
+      <div class="item-item3" *ngIf="profile.type_profile == 'Seller'" >        
+        <img *ngIf="profile.banner!=null&&profile.banner!=''" (click)="goProfile(profile,'Seller')" class="banner" src="{{profile.banner}}">
+        <img *ngIf="profile.banner==null||profile.banner==''" (click)="goProfile(profile,'Seller')" class="banner" src="https://about.canva.com/es_es/wp-content/uploads/sites/3/2015/02/Etsy-Banners.png">
+          <div class="imagenes" (click)="goProfile(profile,'Seller')">
+            <div class="imagen">
+                <img *ngIf="profile.photo!=null" class="logo" src="{{profile.photo}}">
+                <img *ngIf="profile.photo==null" class="logo" src="http://fundaciondiversidad.org/images/stories/imagen_no_disponible.jpg">
+            </div>                  
+          </div>
+        <button icon-only class="boton-seguir" (click)="seguir(profile)">
+          <ion-icon [ngClass]="profile.followColor" name="ios-thumbs-up"></ion-icon>
+        </button>
+      </div>
+      <div class="item-item2" *ngIf="profile.type_profile == 'Independent'" >        
+        <img *ngIf="profile.banner!=null&&profile.banner!=''" (click)="goProfile(profile,'Independent')" class="banner" src="{{profile.banner}}">
+        <img *ngIf="profile.banner==null||profile.banner==''" (click)="goProfile(profile,'Independent')" class="banner" src="https://about.canva.com/es_es/wp-content/uploads/sites/3/2015/02/Etsy-Banners.png">
+          <div class="imagenes" (click)="goProfile(profile,'Independent')">
+            <div class="imagen">
+                <img *ngIf="profile.photo!=null" class="logo" src="{{profile.photo}}">
+                <img *ngIf="profile.photo==null" class="logo" src="http://fundaciondiversidad.org/images/stories/imagen_no_disponible.jpg">
+            </div>                  
+          </div>
+        <button icon-only class="boton-seguir" (click)="seguir(profile)">
+          <ion-icon [ngClass]="profile.followColor" name="ios-thumbs-up"></ion-icon>
+        </button>
+      </div>
+      <div class="title-item2">{{profile.title}}</div>
+    </div>
+
+    <div class="item-scroll3" text-center>      
+      <ion-icon class="icon-ver" name="add"></ion-icon>
+      <button ion-button color="primary" (click)="showSpandir()">Ver todo</button>
+    </div>
+
+  </ion-scroll>
+  <ion-scroll  scrollX="true" *ngIf="window&&showWindow[1]!=''" class="scroll-x">
+    
+    <div class="item-scroll2" *ngFor="let product of productsAll" >      
+      <ion-grid >
+        <ion-row >
+          <ion-col col-5 class="img">
+            <div class="imagen">
+              <img class="image-fondo" src="assets/imgs/fondo.jpg">
+              <img *ngIf="product.images!=null" (click)="goProduct(product)" class="image-ver" src="{{product.images}}">
+              <img *ngIf="product.images==null" (click)="goProduct(product)" class="image-ver" src="http://fundaciondiversidad.org/images/stories/imagen_no_disponible.jpg">              
+            </div> 
+            <button icon-only class="boton-seguir" (click)="addWish(product)">
+                <ion-icon [ngClass]="product.followColor" name="md-heart"></ion-icon>
+              </button>
+              <button icon-only class="boton-seguir2"  (click)="addProduct(product)">
+                    <ion-icon class="icon-cart" name="cart"></ion-icon>
+                  </button> 
+          </ion-col>
+          <ion-col col-7 >
+            <div class="content-uno">
+              <div class="name" (click)="goProduct(product)"> <b>{{product.name}}</b></div>
+              <div class="perfil" >{{product.title}}
+                <img *ngIf="product.type_profile == 'Pyme'" src="https://cdn1.iconfinder.com/data/icons/social-media-vol-3-2/24/_p-32.png"/>
+                <img *ngIf="product.type_profile == 'Seller'" src="https://cdn1.iconfinder.com/data/icons/social-media-vol-3-2/24/_s_copy-32.png"/>
+                <img *ngIf="product.type_profile == 'Independent'" src="https://cdn1.iconfinder.com/data/icons/social-media-vol-3-2/24/_heart-32.png"/>
+              </div>
+              <h4>CLP {{product.price}}</h4>
+            </div>
+            <div class="content-dos">
+              <div class="row iconos">
+                <div class="col val">4.5</div>
+                <ion-icon class="col star" name="ios-star" ></ion-icon>
+                <ion-icon class="col star" name="ios-star" ></ion-icon>
+                <ion-icon class="col star" name="ios-star" ></ion-icon>
+                <ion-icon class="col star" name="ios-star" ></ion-icon>
+                <ion-icon class="col star" name="ios-star-half-outline" ></ion-icon>
+              </div>              
+            </div>            
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="item-scroll3" text-center>      
+      <ion-icon class="icon-ver" name="add"></ion-icon>
+      <button ion-button color="primary" (click)="showSpandir()">Ver todo</button>
+    </div>
+  </ion-scroll>
+  <ion-scroll  scrollX="true" *ngIf="window&&showWindow[2]!=''" class="scroll-x">
+    
+    
+  </ion-scroll>
+</ion-content> -->

@@ -1,0 +1,106 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+      <ion-icon class="menu-icon"><img src="assets/imgs/ic_menu.png"></ion-icon>
+    </button>
+        <ion-title>{{"my_order" | translate}}
+            <span float-right> 
+              <ion-icon class="icon" (click)="searchPage()"><img src="assets/imgs/ic_search.png" width="100%;"></ion-icon>
+              <ion-icon class="icon" (click)="cartPage()"><img src="assets/imgs/ic_my_cart.png" width="100%;"></ion-icon>             
+            </span>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-light">
+    <ion-card>
+        <ion-card-content>
+            <ion-row>
+                <ion-col col-3>
+                    <div class="img-box">
+                        <img src="assets/imgs/suit_PNG8132.png">
+                    </div>
+                </ion-col>
+                <ion-col col-9>
+                    <h4>Unique For Men Black Formal Slim Fit Shirt</h4>
+                    <div class="rate">
+                        <p class=text-light>{{"order_on" | translate}} 12-March-017</p>
+                        <div style="display: flex;">
+                            <div class="price text-light mr-5">
+                                <img src="assets/imgs/rupee-light.png" class="rupee-icon">500
+                            </div>
+                            <div class="price text-sky">
+                                <img src="assets/imgs/rupee-sky.png" class="rupee-icon">300
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-btn" float-right padding-top>
+                        <small class="text-sky ">{{"cancel_order" | translate}}</small>
+                        <small class="text-white bg-green green-shadow">{{"track_order" | translate}}</small>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-row>
+                <ion-col col-3>
+                    <div class="img-box">
+                        <img src="assets/imgs/bag.jpg">
+                    </div>
+                </ion-col>
+                <ion-col col-9>
+                    <h4>Skybags Leo 26 ltrs Red Casual Backpack</h4>
+                    <div class="rate">
+                        <p class=text-light>{{"deliver_on" | translate}} 12-March-017</p> <div style="display: flex;">
+                            <div class="price text-light mr-5">
+                                <img src="assets/imgs/rupee-light.png" class="rupee-icon">500
+                            </div>
+                            <div class="price text-sky">
+                                <img src="assets/imgs/rupee-sky.png" class="rupee-icon">300
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-btn" float-right padding-top>
+                        <small class="text-sky ">{{"return_item" | translate}}</small>
+                        <small class="text-white bg-thime sky-shadow">{{"rate_now" | translate}}</small>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-row>
+                <ion-col col-3>
+                    <div class="img-box">
+                        <img src="assets/imgs/wach.jpg">
+                    </div>
+                </ion-col>
+                <ion-col col-9>
+                    <h4>Skmei Analog-Digital Multicolor Dil Men's Watch</h4>
+                    <div class="rate">
+                        <p class=text-light>{{"deliver_on" | translate}} 12-March-017</p>
+                        <div style="display: flex;">
+                            <div class="price text-light mr-5">
+                                <img src="assets/imgs/rupee-light.png" class="rupee-icon">500
+                            </div>
+                            <div class="price text-sky">
+                                <img src="assets/imgs/rupee-sky.png" class="rupee-icon">300
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-btn" float-right padding-top>
+                        <small class="text-sky ">{{"share_product" | translate}}</small>
+                        <small class="text-white bg-gray gray-shadow">{{"rated" | translate}} 4
+                         <ion-icon name="md-star"></ion-icon>
+                        </small>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

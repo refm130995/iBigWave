@@ -1,0 +1,94 @@
+<ion-header class="bg-thime">
+    <ion-navbar>
+      <button ion-button menuToggle style="display: block !important;">
+        <ion-icon class="menu-icon"><img src="assets/imgs/ic_menu.png">
+          <ion-badge id="notifications-badge" color="danger">4</ion-badge>
+        </ion-icon>
+      </button>
+  
+      <ion-title text-uppercase text-center>{{"app_title" | translate}} <br>
+         <div (click)="selectCountry()" class="country"> <small> {{country}}</small> <ion-icon name="arrow-dropdown"></ion-icon></div>
+        <span float-right>
+          <ion-icon class="icon" (click)="wishlistPage()"><img src="assets/imgs/ic_my_wishlist.png" width="100%;"></ion-icon>
+          <ion-icon class="icon" (click)="cartPage()"><img src="assets/imgs/ic_my_cart.png" width="100%;">
+            <ion-badge id="notifications-badge" color="danger">2</ion-badge>
+          </ion-icon>
+        </span>
+      </ion-title>
+    </ion-navbar>
+  <!--   <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'search_box' | translate}}" (click)="searchPage()"></ion-searchbar> -->
+
+    <div padding>
+        <ion-segment [(ngModel)]="segment">
+          <ion-segment-button value="message">
+            Mensajes
+          </ion-segment-button>
+          <ion-segment-button value="peoples">
+            Cotizaciones
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+  </ion-header>
+<ion-content >
+
+    
+    <div [ngSwitch]="segment">
+      <ion-list *ngSwitchCase="'message'">
+        <ion-item no-lines (click)="messagesPage()">
+          <ion-thumbnail item-start>
+            <ion-item>
+              <ion-avatar item-start>
+                  <img src="assets/imgs/suit_PNG8132.png">
+              </ion-avatar>
+              <h2 class="description">Unique For Men Black Formal Slim Fit Shirt</h2> 
+               <p>Si amigo, compre con confianza.</p>
+            </ion-item>
+          </ion-thumbnail>
+        </ion-item>
+    
+     
+    
+      </ion-list>
+    
+      <ion-list *ngSwitchCase="'peoples'" padding>
+        <div class="boxChat">
+          <div class="itemL">
+              <ion-row justify-content-center>
+        
+                <ion-col col-10 class="padN">
+                  <div class="boxChatType">
+                      <img src="assets/imgs/suit_PNG8132.png">
+                    <p>Nombre de usuario</p>
+                  </div>
+                </ion-col>
+                <ion-col col-2 class="padN" text-right>
+                  <small>12:56</small> <br>
+      
+                    <small class="bg-blue btn-round text-white"> Status</small>
+              
+                </ion-col>
+        <ion-note>Ultimo mensaje</ion-note>
+              </ion-row>
+            </div>
+            <div class="itemL">
+                <ion-row justify-content-center>
+          
+                  <ion-col col-10 class="padN">
+                    <div class="boxChatType">
+                        <img src="assets/imgs/suit_PNG8132.png">
+                      <p>Nombre de usuario</p>
+                    </div>
+                  </ion-col>
+                  <ion-col col-2 class="padN" text-right>
+                    <small>12:56</small>
+                    
+                        <small class="bg-blue btn-round text-white"> Status</small>
+                    
+                  </ion-col>
+                  <ion-note>Ultimo mensaje</ion-note>
+                </ion-row>
+              </div>
+        </div>
+      </ion-list>
+    </div>
+  </ion-content>
