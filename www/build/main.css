@@ -27611,6 +27611,11 @@ page-home .feature_category {
   text-align: left;
 }
 
+page-home .imgbox2 {
+  width: 85px;
+  height: 65px;
+}
+
 page-independients .list {
   margin: 0 !important;
 }

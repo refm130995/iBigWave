@@ -2,8 +2,6 @@ import { Component, ViewChild,Inject } from '@angular/core';
 import { Nav, Platform, AlertController, ModalController, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { HomePage } from '../pages/home/home';
 import { PhonenumberPage } from '../pages/phonenumber/phonenumber';
 import { CategoryPage } from '../pages/category/category';
 import { WishlistPage } from '../pages/wishlist/wishlist';
@@ -26,7 +24,6 @@ import { ROOT } from '../providers/routes';
 import { ChatPage } from '../pages/chat/chat';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { UsersModuleProvider } from '../providers/users-module/users-module';
-import { UserModel } from '../models/user.model';
 
 @Component({
   templateUrl: 'app.html'
@@ -52,7 +49,6 @@ export class MyApp {
       this.user.avatar = 'false';
       this.events.subscribe("userLogin", () => {
         this.checkLogin();
-        console.log("events in component app", this.user)
       });
     this.initializeApp();
   }
@@ -60,9 +56,9 @@ export class MyApp {
   initializeApp() {
     this.translate.setDefaultLang('en');
     this.platform.ready().then(() => {
-      this.checkLogin();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.checkLogin();
 
 /*       if (this.platform.is('cordova')) {
         this.globalization.getPreferredLanguage().then(result => {
@@ -88,33 +84,43 @@ export class MyApp {
   }
 
   checkLogin() {
-    this._tokenService.init({
+ this._tokenService.init({
       apiBase: ROOT
     });
-    this.userProvider.getUser().subscribe( (resp)=> {
-      this.user = JSON.parse(resp['_body']).data.attributes;
-      if(!this.user.phone) {
-        this.user.phone = 'N/A';
-      }
-      if(!this.user.avatar['url']){
-        this.user.avatar = false;
-      }else{
-        this.user.avatar = this.user.avatar['url'];
-      }
-      this.menuCtrl.enable(true, 'authenticated');
-      this.menuCtrl.enable(false, 'unauthenticated');
-     },
-     error => {
-      if(error.status == 401){
-        console.log(error);
-        this.storage.remove('user');
-        this.alert.alert('Alerta!',"Su sesión ha expirado.");
-        this.menuCtrl.enable(false, 'authenticated');
-        this.menuCtrl.enable(true, 'unauthenticated');
-        this.user = null;
+    this.storage.get('user').then((user) => {
+      console.log(user)
+     if(user){
+       this.userProvider.getUser().subscribe( (resp)=> {
+         this.user = JSON.parse(resp['_body']).data.attributes;
+         if(!this.user.phone) {
+           this.user.phone = 'N/A';
+         }
+         if(!this.user.avatar['url']){
+           this.user.avatar = false;
+         }else{
+           this.user.avatar = this.user.avatar['url'];
+         }
+         this.menuCtrl.enable(true, 'authenticated');
+         this.menuCtrl.enable(false, 'unauthenticated');
+        },
+        error => {
+         if(error.status == 401){
+           console.log(error);
+           this.storage.remove('user');
+           this.alert.alert('Alerta!',"Su sesión ha expirado.");
+           this.menuCtrl.enable(false, 'authenticated');
+           this.menuCtrl.enable(true, 'unauthenticated');
+           this.user = null;
+        }
+        }
+       )
+     }else {
+      this.storage.remove('user');
+      this.menuCtrl.enable(false, 'authenticated');
+      this.menuCtrl.enable(true, 'unauthenticated');
+      this.user = null;
      }
-     }
-    )
+  });
   }
   setDirectionAccordingly(lang: string) {
     switch (lang) {

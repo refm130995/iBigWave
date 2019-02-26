@@ -7,19 +7,43 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova.plugins.diagnostic": {
+    "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
     },
-    "cordova-sqlite-storage": {
+    "cordova-plugin-device": {
       "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
     },
     "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
     },
+    "cordova-plugin-googlemaps": {
+      "API_KEY_FOR_ANDROID": "AIzaSyC6bA0tzMkWviWEpFnjQxEF0U5I_Kd2il0",
+      "PLAY_SERVICES_VERSION": "12.0.0",
+      "ANDROID_SUPPORT_V4_VERSION": "24.1.0",
+      "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
+    },
+    "cordova-plugin-nativegeocoder": {
+      "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
+    },
     "cordova-plugin-telerik-imagepicker": {
       "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
     },
-    "cordova-plugin-camera": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
+    },
+    "cordova.plugins.diagnostic": {
       "PACKAGE_NAME": "com.verbosetech.mobimall_ionic_template"
     }
   },

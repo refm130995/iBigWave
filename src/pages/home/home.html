@@ -52,7 +52,7 @@
 <ion-content class="bg-light">
   <ion-slides pager autoplay=2000 parallax=true>
     <ion-slide *ngFor="let slide of slides">
-        <button ion-button class="btn_slide" color="{{slide.color}}" (click)="goSave(slide)">{{slide.button}}</button>
+        <button ion-button class="btn_slide" color="{{slide.color}}" (click)="goSave(slide.component)">{{slide.button}}</button>
       <img [src]="slide.image" class="slide-image" />
       <div class="banner-text">
         <p [innerHTML]="slide.description"></p>
@@ -323,138 +323,54 @@
         <small class="bg-blue btn-round text-white" float-right (click)="goListProducts()">{{"view_all" | translate}}<!--  Ver todas nuestras tiendas --></small>
       </p>
     
-      <ion-row>
-          <ion-col>
-            <ion-card>
-              <ion-card-header>
-                <div class="img-box" (click)="itemdetailPage()">
-                    <img src="assets/imgs/suit_PNG8132.png">
-                </div>
-                <ion-icon name="md-heart" class="text-light icon"></ion-icon>
-              </ion-card-header>
-              <ion-card-content (click)="itemdetailPage()">
-                <h5>Unique For Men Black Formal Slim Fit Shirt</h5>
-                <div class="rateing">
-                  <div class="card-btn">
-                    <p class="" float-left>
-                      <span class="text-white bg-green small-text">4.2 <ion-icon name="md-star"></ion-icon></span>
-                      <span class="text-light bold"> (125)</span>
-                    </p>
-                    <div style="display: flex;" float-right>
-                      <div class="price text-light mr-5">
-                        <img src="assets/imgs/rupee-light.png" class="rupee-icon">500
-                      </div>
-                      <div class="price text-sky">
-                        <img src="assets/imgs/rupee-sky.png" class="rupee-icon">300
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <ion-card-header>
+      <ion-row >
+          <ng-container  *ngFor="let product of products; let i = index">
+            <ion-col col-6>
+              <ion-card>
+                <ion-card-header>
                   <div class="img-box" (click)="itemdetailPage()">
-                      <img src="assets/imgs/shirt-2.jpg">
+                      <img class="imgbox2" src="{{product.photo}}">
                   </div>
                   <ion-icon name="md-heart" class="text-light icon"></ion-icon>
-              </ion-card-header>
-              <ion-card-content (click)="itemdetailPage()">
-                  <h5>Unique For Men Black Formal Slim Fit Shirt</h5>
+                </ion-card-header>
+                <ion-card-content (click)="itemdetailPage()">
+                  <h5>{{product.title}}</h5>
                   <div class="rateing">
-                      <div class="card-btn">
-                          <p class="" float-left>
-                              <span class="text-white bg-green small-text">4.2 <ion-icon name="md-star"></ion-icon></span>
-                              <span class="text-light bold"> (125)</span>
-                          </p>
-                          <div style="display: flex;" float-right>
-                              <div class="price text-light mr-5">
-                                  <img src="assets/imgs/rupee-light.png" class="rupee-icon">500
-                              </div>
-                              <div class="price text-sky">
-                                  <img src="assets/imgs/rupee-sky.png" class="rupee-icon">300
-                              </div>
+                    <div class="card-btn">
+                      <p class="" float-left>
+  
+                      </p>
+                      
+                      <div style="display: flex;" float-right>
+                          <div class="price text-light mr-5">
+                              <img src="assets/imgs/rupee-light.png" class="rupee-icon">{{product.price}}
                           </div>
+                <!--           <div class="price text-sky">
+                              <img src="assets/imgs/rupee-sky.png" class="rupee-icon">300
+                          </div> -->
                       </div>
+                    </div>
                   </div>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      
-        <ion-row>
-          <ion-col>
-            <ion-card>
-                <ion-card-header>
-                    <div class="img-box" (click)="itemdetailPage()">
-                        <img src="assets/imgs/shirt-3.jpg">
-                    </div>
-                    <ion-icon name="md-heart" class="text-light icon"></ion-icon>
-                </ion-card-header>
-                <ion-card-content (click)="itemdetailPage()">
-                    <h5>Unique For Men Black Formal Slim Fit Shirt</h5>
-                    <div class="rateing">
-                        <div class="card-btn">
-                            <p class="" float-left>
-                                <span class="text-white bg-green small-text">4.2 <ion-icon name="md-star"></ion-icon></span>
-                                <span class="text-light bold"> (125)</span>
-                            </p>
-                            <div style="display: flex;" float-right>
-                                <div class="price text-light mr-5">
-                                    <img src="assets/imgs/rupee-light.png" class="rupee-icon">500
-                                </div>
-                                <div class="price text-sky">
-                                    <img src="assets/imgs/rupee-sky.png" class="rupee-icon">300
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </ion-card-content>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-                <ion-card-header>
-                    <div class="img-box" (click)="itemdetailPage()">
-                        <img src="assets/imgs/shirt-4.jpg">
-                    </div>
-                    <ion-icon name="md-heart" class="text-light icon"></ion-icon>
-                </ion-card-header>
-                <ion-card-content (click)="itemdetailPage()">
-                    <h5>Unique For Men Black Formal Slim Fit Shirt</h5>
-                    <div class="rateing">
-                        <div class="card-btn">
-                            <p class="" float-left>
-                                <span class="text-white bg-green small-text">4.2 <ion-icon name="md-star"></ion-icon></span>
-                                <span class="text-light bold"> (125)</span>
-                            </p>
-                            <div style="display: flex;" float-right>
-                                <div class="price text-light mr-5">
-                                    <img src="assets/imgs/rupee-light.png" class="rupee-icon">500
-                                </div>
-                                <div class="price text-sky">
-                                    <img src="assets/imgs/rupee-sky.png" class="rupee-icon">300
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
+              </ion-card>
+            </ion-col>
+          </ng-container>
+        
+
+          </ion-row>
+
     </ion-slide>
     <ion-slide>
         <p class="feature_category"><!-- {{"feature_item" | translate}} -->Nuestros vendedores mas seguidos
           <small class="bg-sky btn-round text-white" float-right (click)="goListSellers()">{{"view_all" | translate}}<!--  Ver todas nuestras tiendas --></small>
         </p>
-        <ion-row *ngFor="let seller of sellers  let i=index">
-            <ion-col>
+        <ion-row >
+          <ng-container  *ngFor="let seller of sellers; let i = index">
+            <ion-col col-6>
               <ion-card>
                 <ion-card-header>
                   <div class="img-box" (click)="itemdetailPage()">
-                      <img src="{{seller.photo}}">
+                      <img class="imgbox2" src="{{seller.photo}}">
                   </div>
                   <ion-icon name="md-heart" class="text-light icon"></ion-icon>
                 </ion-card-header>
@@ -472,35 +388,9 @@
                 </ion-card-content>
               </ion-card>
             </ion-col>
-            <ion-col>
-              <ion-card>
-                <ion-card-header>
-                    <div class="img-box" (click)="itemdetailPage()">
-                        <img src="assets/imgs/shirt-2.jpg">
-                    </div>
-                    <ion-icon name="md-heart" class="text-light icon"></ion-icon>
-                </ion-card-header>
-                <ion-card-content (click)="itemdetailPage()">
-                    <h5>Unique For Men Black Formal Slim Fit Shirt</h5>
-                    <div class="rateing">
-                        <div class="card-btn">
-                            <p class="" float-left>
-                                <span class="text-white bg-green small-text">4.2 <ion-icon name="md-star"></ion-icon></span>
-                                <span class="text-light bold"> (125)</span>
-                            </p>
-                            <div style="display: flex;" float-right>
-                                <div class="price text-light mr-5">
-                                    <img src="assets/imgs/rupee-light.png" class="rupee-icon">500
-                                </div>
-                                <div class="price text-sky">
-                                    <img src="assets/imgs/rupee-sky.png" class="rupee-icon">300
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ion-card-content>
-              </ion-card>
-            </ion-col>
+          </ng-container>
+        
+
           </ion-row>
         
       </ion-slide>

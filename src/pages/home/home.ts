@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ComponentDecorator } from '@angular/core';
 import { NavController, ModalController, Events } from 'ionic-angular';
 import { CategoryPage } from '../category/category';
 import { SearchPage } from '../search/search';
@@ -116,13 +116,13 @@ export class HomePage {
   checkUser(){
    this.event.publish('userLogin');
   }
-
+/* 
   getCountry(){
     this.country = this.gps.get_address();
-  }
+  } */
 
-  goSave(slide:any) {
-    this.navCtrl.push(slide.component);
+  goSave(component:ComponentDecorator) {
+    this.navCtrl.push(component);
   }
   getSuggest() {
     this.product.homeSuggest().subscribe( (resp)=> {

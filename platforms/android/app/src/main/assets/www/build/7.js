@@ -1,14 +1,14 @@
 webpackJsonp([7],{
 
-/***/ 726:
+/***/ 749:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryPageModule", function() { return CountryPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PymesPageModule", function() { return PymesPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__country__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pymes__ = __webpack_require__(185);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var CountryPageModule = (function () {
-    function CountryPageModule() {
+var PymesPageModule = (function () {
+    function PymesPageModule() {
     }
-    CountryPageModule = __decorate([
+    PymesPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__country__["a" /* CountryPage */],
+                __WEBPACK_IMPORTED_MODULE_2__pymes__["a" /* PymesPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__country__["a" /* CountryPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__pymes__["a" /* PymesPage */]),
             ],
         })
-    ], CountryPageModule);
-    return CountryPageModule;
+    ], PymesPageModule);
+    return PymesPageModule;
 }());
 
-//# sourceMappingURL=country.module.js.map
+//# sourceMappingURL=pymes.module.js.map
 
 /***/ })
 
